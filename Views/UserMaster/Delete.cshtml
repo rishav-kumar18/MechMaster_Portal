@@ -1,0 +1,44 @@
+﻿@model MYMVC.Models.UserMaster
+
+@{
+    ViewBag.Title = "Delete User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Delete User</h1>
+        <p class="mm-page-desc">Are you sure you want to delete this?</p>
+    </div>
+</div>
+
+<div class="mm-card" style="max-width:720px;">
+    <dl class="dl-horizontal row mb-0">
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.UserID)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.UserID)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Pwd)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Pwd)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.UserName)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.UserName)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.MobNo)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.MobNo)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.EmailID)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.EmailID)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.UserType)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.UserType)</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="mt-4">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a class="btn btn-outline-dark" href="@Url.Action("Index")">Back to List</a>
+        </div>
+    }
+</div>

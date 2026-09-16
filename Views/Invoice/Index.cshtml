@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MYMVC.Models.InvoiceVM>
+
+@{
+    ViewBag.Title = "Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Invoices</h1>
+        <p class="mm-page-desc">Manage customer service invoices</p>
+    </div>
+    <a class="btn btn-primary" href="@Url.Action("Create")"><i class="fa-solid fa-plus"></i> Create New</a>
+</div>
+
+<div class="mm-table-card">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.MobileNo)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.CustomerType)</th>
+                <th>@Html.DisplayNameFor(model => model.CustSts)</th>
+                <th>@Html.DisplayNameFor(model => model.StreetAddress)</th>
+                <th>@Html.DisplayNameFor(model => model.AreaAddress)</th>
+                <th>@Html.DisplayNameFor(model => model.State)</th>
+                <th>@Html.DisplayNameFor(model => model.City)</th>
+                <th>@Html.DisplayNameFor(model => model.Country)</th>
+                <th>@Html.DisplayNameFor(model => model.CustPinCode)</th>
+                <th>@Html.DisplayNameFor(model => model.CustEmail)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleRegNo)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.MobileNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustomerType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustSts)</td>
+                    <td>@Html.DisplayFor(modelItem => item.StreetAddress)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AreaAddress)</td>
+                    <td>@Html.DisplayFor(modelItem => item.State)</td>
+                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustPinCode)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustEmail)</td>
+                    <td>@Html.DisplayFor(modelItem => item.VehicleRegNo)</td>
+                    <td>
+                        <a class="btn btn-outline-dark btn-sm" href="@Url.Action("Edit", new { id = item.InvoiceSNo })">Edit</a>
+                        <a class="btn btn-outline-dark btn-sm" href="@Url.Action("Details", new { id = item.InvoiceSNo })">Details</a>
+                        <a class="btn btn-outline-dark btn-sm" href="@Url.Action("Delete", new { id = item.InvoiceSNo })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

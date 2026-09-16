@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Help";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Help Guide</h1>
+        <p class="mm-page-desc">Service Management System — how each module works</p>
+    </div>
+</div>
+
+<div class="mm-card">
+
+    <h3><i class="fa-solid fa-lock mm-text-secondary"></i> 1. Login</h3>
+    <p>Users can log into the system using their username and password. If the credentials are valid, the dashboard will be displayed.</p>
+    <hr />
+
+    <h3><i class="fa-solid fa-user-gear mm-text-secondary"></i> 2. User Module</h3>
+    <p>The admin can create and manage users. User roles can be assigned to control system access. This helps in managing permissions within the system.</p>
+    <hr />
+
+    <h3><i class="fa-solid fa-users mm-text-secondary"></i> 3. Customer Module</h3>
+    <p>Customer details are stored in the system, including:</p>
+    <ul>
+        <li>Name</li>
+        <li>Mobile Number</li>
+        <li>Email</li>
+        <li>Address</li>
+    </ul>
+    <p>Customers can be added, edited, deleted, and viewed.</p>
+    <hr />
+
+    <h3><i class="fa-solid fa-boxes-stacked mm-text-secondary"></i> 4. Item Module</h3>
+    <p>Items are added to the system with details such as:</p>
+    <ul>
+        <li>Item Name</li>
+        <li>Price</li>
+        <li>Category</li>
+    </ul>
+    <p>These items are used while creating invoices.</p>
+    <hr />
+
+    <h3><i class="fa-solid fa-file-invoice-dollar mm-text-secondary"></i> 5. Invoice Module</h3>
+    <p>The invoice module is the core part of the system:</p>
+    <ul>
+        <li>Select a customer</li>
+        <li>Add vehicle details</li>
+        <li>Add items</li>
+        <li>Tax is calculated automatically</li>
+        <li>Total amount is generated</li>
+    </ul>
+    <p>Invoice includes:</p>
+    <ul>
+        <li>Parts Total</li>
+        <li>Labour Charges</li>
+        <li>GST (CGST/SGST/IGST)</li>
+        <li>Grand Total</li>
+    </ul>
+    <p>Users can:</p>
+    <ul>
+        <li>Edit invoices</li>
+        <li>Delete invoices</li>
+        <li>View invoice details</li>
+    </ul>
+    <hr />
+
+    <h3><i class="fa-solid fa-key mm-text-secondary"></i> 6. Change Password</h3>
+    <p>Users can change their password. The old password must be verified before setting a new one.</p>
+    <hr />
+
+    <h3><i class="fa-solid fa-envelope mm-text-secondary"></i> 7. Contact</h3>
+    <p>Users can contact the admin or support team through the contact page. It includes email or phone details.</p>
+    <hr />
+
+    <h3><i class="fa-solid fa-right-from-bracket mm-text-secondary"></i> 8. Logout</h3>
+    <p>Users can securely log out of the system. This will end the current session.</p>
+    <hr />
+
+    <h3 style="color:var(--mm-success);"><i class="fa-solid fa-circle-check"></i> System Summary</h3>
+    <p>This is a complete Service Management System that includes:</p>
+    <ul>
+        <li>User Management</li>
+        <li>Customer Management</li>
+        <li>Item Management</li>
+        <li>Invoice Generation</li>
+    </ul>
+    <p>All modules are interconnected and help in efficiently managing business operations.</p>
+
+</div>

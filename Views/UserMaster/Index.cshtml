@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MYMVC.Models.UserMaster>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Users</h1>
+        <p class="mm-page-desc">Manage system users</p>
+    </div>
+    <a class="btn btn-primary" href="@Url.Action("Create")"><i class="fa-solid fa-plus"></i> Create New</a>
+</div>
+
+<div class="mm-table-card">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.UserID)</th>
+                <th>@Html.DisplayNameFor(model => model.Pwd)</th>
+                <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                <th>@Html.DisplayNameFor(model => model.MobNo)</th>
+                <th>@Html.DisplayNameFor(model => model.EmailID)</th>
+                <th>@Html.DisplayNameFor(model => model.UserType)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Pwd)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MobNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EmailID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UserType)</td>
+                    <td>
+                        <a class="btn btn-outline-dark btn-sm" href="@Url.Action("Edit", new { id = item.UserID })">Edit</a>
+                        <a class="btn btn-outline-dark btn-sm" href="@Url.Action("Details", new { id = item.UserID })">Details</a>
+                        <a class="btn btn-outline-dark btn-sm" href="@Url.Action("Delete", new { id = item.UserID })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,58 @@
+﻿@model MYMVC.Models.User
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-guest-shell">
+    <div class="mm-guest-topbar">
+        <i class="fa-solid fa-wrench"></i>
+        <span>MasterMech</span>
+    </div>
+
+    <div class="mm-login-wrap">
+        <div class="mm-login-card">
+
+            <div class="mm-login-header">
+                <div class="mm-login-icon"><i class="fa-solid fa-user-lock"></i></div>
+                <h4>Welcome back</h4>
+                <p>Sign in to manage customers, items and invoices</p>
+            </div>
+
+            <div class="mm-login-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <form method="post" action="/Home/Login">
+
+                    <div class="mb-3">
+                        <label>Financial Year</label>
+                        <select name="FinYear" class="form-control">
+                            <option value="2025-26">2025-26</option>
+                            <option value="2024-25">2024-25</option>
+                            <option value="2023-24">2023-24</option>
+                            <option value="2022-23">2022-23</option>
+                            <option value="2021-22">2021-22</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label><i class="fa-solid fa-user"></i> User Name</label>
+                        <input type="text" name="UserID" class="form-control" placeholder="Enter Username" autocomplete="off" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label><i class="fa-solid fa-lock"></i> Password</label>
+                        <input type="password" name="Pwd" class="form-control" placeholder="Enter Password" autocomplete="new-password" />
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <input type="submit" value="Login" class="btn btn-primary" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

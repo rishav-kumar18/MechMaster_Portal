@@ -1,0 +1,63 @@
+﻿@model MYMVC.Models.UserMaster
+
+@{
+    ViewBag.Title = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Edit User</h1>
+        <p class="mm-page-desc">Update user details</p>
+    </div>
+</div>
+
+<div class="mm-card" style="max-width:720px;">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserID)
+        @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pwd)
+        @Html.EditorFor(model => model.Pwd, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Pwd, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserName)
+        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MobNo)
+        @Html.EditorFor(model => model.MobNo, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.MobNo, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmailID)
+        @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserType)
+        @Html.EditorFor(model => model.UserType, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-outline-dark" href="@Url.Action("Index")">Cancel</a>
+    </div>
+}
+</div>

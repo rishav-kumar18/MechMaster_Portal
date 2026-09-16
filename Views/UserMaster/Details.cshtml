@@ -1,0 +1,39 @@
+﻿@model MYMVC.Models.UserMaster
+
+@{
+    ViewBag.Title = "User Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">User Details</h1>
+    </div>
+</div>
+
+<div class="mm-card" style="max-width:720px;">
+    <dl class="dl-horizontal row mb-0">
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.UserID)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.UserID)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Pwd)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Pwd)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.UserName)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.UserName)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.MobNo)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.MobNo)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.EmailID)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.EmailID)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.UserType)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.UserType)</dd>
+    </dl>
+
+    <div class="mt-4">
+        <a class="btn btn-primary" href="@Url.Action("Edit", new { id = Model.UserID })">Edit</a>
+        <a class="btn btn-outline-dark" href="@Url.Action("Index")">Back to List</a>
+    </div>
+</div>

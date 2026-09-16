@@ -1,0 +1,47 @@
+﻿@model System.Data.DataTable
+@using System.Data
+
+<div class="input-group mb-2">
+    <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+    <input type="text" id="popupSearch" class="form-control" placeholder="Search item...">
+</div>
+
+<div class="mm-table-card">
+    <table class="table table-bordered" id="itemTable">
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (DataRow row in Model.Rows)
+            {
+                <tr>
+                    <td>@row["ItemDesc"]</td>
+                    <td>@row["ItemPrice"]</td>
+
+                    <td>
+                        <button class="btn btn-success btn-sm"
+                                onclick="SelectItem(
+                        '@row["ItemNo"]',
+                        '@row["ItemDesc"]',
+                        '@row["ItemPrice"]',
+                        '@row["ItemUOM"]',
+                        '@row["ItemType"]',
+                        '@row["ItemCatg"]',
+                        '@row["CGSTRate"]',
+                        '@row["SGSTRate"]',
+                        '@row["IGSTRate"]'
+                    )">
+                            Select
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

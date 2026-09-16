@@ -1,0 +1,52 @@
+﻿@model MYMVC.Controllers.Customer
+
+@{
+    ViewBag.Title = "Customer Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Customer Details</h1>
+    </div>
+</div>
+
+<div class="mm-card" style="max-width:720px;">
+    <dl class="dl-horizontal row mb-0">
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CustNo)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.CustNo)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CustFName)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.CustFName)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CustLName)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.CustLName)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CustMobNo)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.CustMobNo)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CustEmail)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.CustEmail)</dd>
+
+        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.CustStAddr)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.CustStAddr)</dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.mnConnStr)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.mnConnStr)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.msUserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.msUserID)
+        </dd>*@
+    </dl>
+
+    <div class="mt-4">
+        <a class="btn btn-primary" href="@Url.Action("Edit", new { id = Model.CustNo })">Edit</a>
+        <a class="btn btn-outline-dark" href="@Url.Action("Index")">Back to List</a>
+    </div>
+</div>

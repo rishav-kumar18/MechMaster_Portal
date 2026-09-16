@@ -1,0 +1,89 @@
+﻿@model MYMVC.Models.Item
+
+@{
+    ViewBag.Title = "Edit Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Edit Item</h1>
+        <p class="mm-page-desc">Update item details</p>
+    </div>
+</div>
+
+<div class="mm-card" style="max-width:720px;">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ItemId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemName)
+        @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.ItemType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ItemType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ItemType, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemType)
+        @Html.DropDownListFor(model => model.ItemType,
+            new SelectList(new[] { "PARTS", "LABOUR", "SERVICE" }),
+            "Select Type",
+            new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemCategory)
+        @Html.EditorFor(model => model.ItemCategory, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ItemCategory, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemPrice)
+        @Html.EditorFor(model => model.ItemPrice, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ItemPrice, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QtyInHand)
+        @Html.EditorFor(model => model.QtyInHand, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.QtyInHand, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Remarks)
+        @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemUOM)
+        @Html.DropDownListFor(model => model.ItemUOM,
+            new SelectList(new[] { "PCS", "KG", "LITER", "BOX" }),
+            "Select UOM",
+            new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemSts)
+        @Html.DropDownListFor(model => model.ItemSts,
+            new SelectList(new[] { "ACT", "INACT" }),
+            "Select Status",
+            new { @class = "form-control" })
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-outline-dark" href="@Url.Action("Index")">Cancel</a>
+    </div>
+}
+</div>

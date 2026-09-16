@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MasterMech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    @{
+        bool isLoggedIn = Session["UserID"] != null;
+    }
+
+    @if (isLoggedIn)
+    {
+        <div class="mm-app">
+
+            <div class="mm-sidebar-backdrop" id="mmSidebarBackdrop"></div>
+
+            <aside class="mm-sidebar" id="mmSidebar">
+                <div class="mm-sidebar-brand">
+                    <i class="fa-solid fa-wrench"></i>
+                    <span>MasterMech</span>
+                </div>
+
+                <nav class="mm-sidebar-nav">
+
+                    <a class="nav-link" href="@Url.Action("Index", "Home")">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                    <a class="nav-link" href="@Url.Action("About", "Home")">
+                        <i class="fa-solid fa-circle-info"></i> About
+                    </a>
+                    <a class="nav-link" href="@Url.Action("Contact", "Home")">
+                        <i class="fa-solid fa-envelope"></i> Contact
+                    </a>
+
+                    <div class="mm-sidebar-section-title">Operations</div>
+
+                    <div class="mm-sidebar-group">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#navInvoice">
+                            <i class="fa-solid fa-file-invoice-dollar"></i> Invoice
+                        </a>
+                        <div class="collapse mm-sidebar-submenu" id="navInvoice">
+                            <a class="mm-sidebar-link" href="@Url.Action("Create", "Invoice")"><i class="fa-solid fa-plus"></i> New Invoice</a>
+                            <a class="mm-sidebar-link" href="@Url.Action("Index", "Invoice")"><i class="fa-solid fa-list"></i> Manage Invoice</a>
+                        </div>
+                    </div>
+
+                    <div class="mm-sidebar-group">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#navCustomer">
+                            <i class="fa-solid fa-users"></i> Customer
+                        </a>
+                        <div class="collapse mm-sidebar-submenu" id="navCustomer">
+                            <a class="mm-sidebar-link" href="@Url.Action("Create", "Customer")"><i class="fa-solid fa-plus"></i> New Customer</a>
+                            <a class="mm-sidebar-link" href="@Url.Action("Index", "Customer")"><i class="fa-solid fa-list"></i> Manage Customer</a>
+                        </div>
+                    </div>
+
+                    <div class="mm-sidebar-group">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#navItem">
+                            <i class="fa-solid fa-boxes-stacked"></i> Item
+                        </a>
+                        <div class="collapse mm-sidebar-submenu" id="navItem">
+                            <a class="mm-sidebar-link" href="@Url.Action("Create", "Item")"><i class="fa-solid fa-plus"></i> New Item</a>
+                            <a class="mm-sidebar-link" href="@Url.Action("Index", "Item")"><i class="fa-solid fa-list"></i> Manage Item</a>
+                        </div>
+                    </div>
+
+                    <div class="mm-sidebar-section-title">Administration</div>
+
+                    <div class="mm-sidebar-group">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#navUser">
+                            <i class="fa-solid fa-user-gear"></i> User
+                        </a>
+                        <div class="collapse mm-sidebar-submenu" id="navUser">
+                            <a class="mm-sidebar-link" href="@Url.Action("Create", "UserMaster")"><i class="fa-solid fa-plus"></i> New User</a>
+                            <a class="mm-sidebar-link" href="@Url.Action("Index", "UserMaster")"><i class="fa-solid fa-list"></i> Manage User</a>
+                        </div>
+                    </div>
+
+                    <a class="nav-link" href="@Url.Action("Index", "Help")">
+                        <i class="fa-solid fa-circle-question"></i> Help
+                    </a>
+
+                </nav>
+
+                @{
+                    string mmUserIdStr = Session["UserID"] != null ? Session["UserID"].ToString() : "";
+                    string mmUserInitial = !string.IsNullOrEmpty(mmUserIdStr) ? mmUserIdStr.Substring(0, 1).ToUpper() : "?";
+                }
+                <div class="mm-sidebar-footer">
+                    <div class="mm-sidebar-user">
+                        <div class="mm-sidebar-avatar">@mmUserInitial</div>
+                        <div>
+                            <div style="font-weight:600;">@mmUserIdStr</div>
+                        </div>
+                    </div>
+                    <a class="mm-sidebar-link" href="@Url.Action("MyProfile","UserMaster")"><i class="fa-solid fa-id-badge"></i> My Profile</a>
+                    <a class="mm-sidebar-link" href="@Url.Action("ChangePassword","UserMaster")"><i class="fa-solid fa-key"></i> Change Password</a>
+                    <a class="mm-sidebar-logout" href="@Url.Action("Logout","Home")"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                </div>
+            </aside>
+
+            <div class="mm-main">
+                <header class="mm-topbar">
+                    <button class="mm-sidebar-toggle" id="mmSidebarToggle" type="button" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <span class="mm-topbar-title">@ViewBag.Title</span>
+                    <span></span>
+                </header>
+
+                <main class="mm-content">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="mm-main mm-main--guest">
+            <main class="mm-content" style="padding:0;">
+                @RenderBody()
+            </main>
+        </div>
+    }
+
+    <script>
+        (function () {
+            var sidebar = document.getElementById('mmSidebar');
+            var toggle = document.getElementById('mmSidebarToggle');
+            var backdrop = document.getElementById('mmSidebarBackdrop');
+
+            function closeSidebar() {
+                if (sidebar) sidebar.classList.remove('mm-sidebar-open');
+                if (backdrop) backdrop.classList.remove('mm-sidebar-backdrop-open');
+            }
+
+            if (toggle) {
+                toggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('mm-sidebar-open');
+                    backdrop.classList.toggle('mm-sidebar-backdrop-open');
+                });
+            }
+            if (backdrop) {
+                backdrop.addEventListener('click', closeSidebar);
+            }
+
+            // Mark active nav link based on current path
+            var path = window.location.pathname.toLowerCase();
+            document.querySelectorAll('.mm-sidebar a.nav-link, .mm-sidebar a.mm-sidebar-link').forEach(function (a) {
+                var href = (a.getAttribute('href') || '').toLowerCase();
+                if (href && href !== '#' && path.indexOf(href) === 0) {
+                    a.classList.add('active');
+                }
+            });
+        })();
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

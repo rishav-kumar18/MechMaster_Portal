@@ -1,0 +1,125 @@
+﻿@model MYMVC.Models.InvoiceVM
+
+@{
+    ViewBag.Title = "Edit Invoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Edit Invoice</h1>
+        <p class="mm-page-desc">Update invoice header details</p>
+    </div>
+</div>
+
+<div class="mm-card" style="max-width:820px;">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.MobileNo)
+            @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.CustNo)
+            @Html.EditorFor(model => model.CustNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CustNo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.FirstName)
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.LastName)
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.CustomerType)
+            @Html.EditorFor(model => model.CustomerType, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CustomerType, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.CustSts)
+            @Html.EditorFor(model => model.CustSts, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CustSts, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.StreetAddress)
+            @Html.EditorFor(model => model.StreetAddress, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.StreetAddress, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.AreaAddress)
+            @Html.EditorFor(model => model.AreaAddress, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AreaAddress, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.State)
+            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.City)
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.Country)
+            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.CustPinCode)
+            @Html.EditorFor(model => model.CustPinCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CustPinCode, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.CustEmail)
+            @Html.EditorFor(model => model.CustEmail, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CustEmail, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.Remarks)
+            @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.CustomerLastVisit)
+            @Html.EditorFor(model => model.CustomerLastVisit, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CustomerLastVisit, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.VehicleRegNo)
+            @Html.EditorFor(model => model.VehicleRegNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.VehicleRegNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a class="btn btn-outline-dark" href="@Url.Action("Index")">Cancel</a>
+    </div>
+}
+</div>

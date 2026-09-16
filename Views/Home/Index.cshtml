@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<div class="mm-welcome-card">
+    <h2>Welcome to MasterMech</h2>
+    <p>
+        Your workshop management workspace for customers, inventory,
+        services, and invoicing — all in one place.
+    </p>
+</div>
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Quick Access</h1>
+        <p class="mm-page-desc">
+            Manage your workshop operations quickly and keep your day-to-day work organized.
+        </p>
+    </div>
+</div>
+
+<div class="mm-quick-grid">
+
+    <a href="@Url.Action("Create", "Invoice")" class="mm-quick-card">
+        <i class="fas fa-file-invoice"></i>
+        <h5>New Invoice</h5>
+        <p>
+            Create a service invoice for a customer, add parts and labour,
+            calculate taxes, and save the invoice.
+        </p>
+    </a>
+
+    <a href="@Url.Action("Index", "Invoice")" class="mm-quick-card">
+        <i class="fas fa-list-alt"></i>
+        <h5>Manage Invoices</h5>
+        <p>
+            View and manage existing invoices and keep track of your
+            workshop transactions.
+        </p>
+    </a>
+
+    <a href="@Url.Action("Create", "Customer")" class="mm-quick-card">
+        <i class="fas fa-user-plus"></i>
+        <h5>New Customer</h5>
+        <p>
+            Register customer details and maintain an organized
+            customer database.
+        </p>
+    </a>
+
+    <a href="@Url.Action("Index", "Customer")" class="mm-quick-card">
+        <i class="fas fa-users"></i>
+        <h5>Manage Customers</h5>
+        <p>
+            Search, view, and update customer records whenever
+            you need them.
+        </p>
+    </a>
+
+    <a href="@Url.Action("Index", "Item")" class="mm-quick-card">
+        <i class="fas fa-boxes"></i>
+        <h5>Manage Items</h5>
+        <p>
+            Manage parts, labour, and service items used in
+            your workshop.
+        </p>
+    </a>
+
+    <a href="@Url.Action("Index", "Help")" class="mm-quick-card">
+        <i class="fas fa-question-circle"></i>
+        <h5>Help Guide</h5>
+        <p>
+            Learn how the different modules of MasterMech work
+            and get help using the system.
+        </p>
+    </a>
+
+</div>
+
+<div class="mm-card" style="margin-top: 24px;">
+    <div class="mm-card-header">
+        <h3>Built for Everyday Workshop Management</h3>
+    </div>
+
+    <p class="mm-text-secondary">
+        MasterMech brings customer management, inventory, and invoicing
+        together in one workspace, helping you spend less time managing
+        records and more time serving your customers.
+    </p>
+</div>

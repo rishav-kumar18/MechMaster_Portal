@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MYMVC.Controllers.Customer>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Customers</h1>
+        <p class="mm-page-desc">Manage your customer records</p>
+    </div>
+    <a class="btn btn-primary" href="@Url.Action("Create")"><i class="fa-solid fa-plus"></i> Create New</a>
+</div>
+
+<div class="mm-table-card">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.CustNo)</th>
+                <th>@Html.DisplayNameFor(model => model.CustFName)</th>
+                <th>@Html.DisplayNameFor(model => model.CustLName)</th>
+                <th>@Html.DisplayNameFor(model => model.CustMobNo)</th>
+                <th>@Html.DisplayNameFor(model => model.CustEmail)</th>
+                <th>@Html.DisplayNameFor(model => model.CustStAddr)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.CustNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustFName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustLName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustMobNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustEmail)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustStAddr)</td>
+                    <td>
+                        <a class="btn btn-outline-dark btn-sm" href="@Url.Action("Edit", new { id = item.CustNo })">Edit</a>
+                        <a class="btn btn-outline-dark btn-sm" href="@Url.Action("Details", new { id = item.CustNo })">Details</a>
+                        <a class="btn btn-outline-dark btn-sm" href="@Url.Action("Delete", new { id = item.CustNo })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

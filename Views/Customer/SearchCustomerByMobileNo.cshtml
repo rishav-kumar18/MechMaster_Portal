@@ -1,0 +1,37 @@
+﻿@model System.Data.DataTable
+
+<div class="input-group mb-2">
+    <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+    <input type="text" id="custSearch" class="form-control" placeholder="Search customer...">
+</div>
+
+<div class="mm-table-card">
+    <table class="table table-bordered table-sm" id="custTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>City</th>
+                <th>Select</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (System.Data.DataRow row in Model.Rows)
+            {
+                <tr>
+                    <td>@row["CustFName"] @row["CustLName"]</td>
+                    <td>@row["CustMobNo"]</td>
+                    <td>@row["CustEmail"]</td>
+                    <td>@row["CustCity"]</td>
+                    <td>
+                        <button onclick="SelectCustomer(@row["CustNo"])" class="btn btn-success btn-sm">
+                            Select
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

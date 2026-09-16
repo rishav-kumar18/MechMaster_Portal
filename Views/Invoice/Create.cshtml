@@ -1,0 +1,843 @@
+@{
+    ViewBag.Title = "Create Invoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Invoice-specific layout only — global look comes from Site.css */
+    .mm-invoice-tabs .nav-link {
+        color: var(--mm-text-secondary);
+        font-weight: 600;
+        font-size: 13.5px;
+        border: none;
+        border-bottom: 2px solid transparent;
+        padding: 10px 16px;
+    }
+
+    .mm-invoice-tabs .nav-link.active {
+        color: var(--mm-blue);
+        border-bottom-color: var(--mm-blue);
+        background: transparent;
+    }
+
+    .mm-invoice-tabs {
+        border-bottom: 1px solid var(--mm-border);
+    }
+
+    .box {
+        border: 1px solid var(--mm-border);
+        padding: 20px;
+        background: #fff;
+        border-radius: 0 0 10px 10px;
+        box-shadow: var(--mm-shadow);
+    }
+
+    #main.box, #vehicle.box {
+        border-top: none;
+    }
+
+    .form-control {
+        height: 36px;
+        font-size: 13.5px;
+    }
+</style>
+
+<div class="mm-page-header">
+    <div>
+        <h1 class="mm-page-title">Create Invoice</h1>
+        <p class="mm-page-desc">Add customer, vehicle and billing details</p>
+    </div>
+</div>
+
+<div>
+
+    <!-- TABS -->
+    <ul class="nav nav-tabs mm-invoice-tabs">
+        <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#main">Main</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#vehicle">Vehicle</a></li>
+        <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#bill">Bill</a></li>
+    </ul>
+
+    <div class="tab-content">
+
+        <!-- ================= MAIN ================= -->
+        <div id="main" class="tab-pane fade show active box">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <label>Mobile No</label>
+                    <div class="input-group mb-2">
+                        <input id="mobile" class="form-control" placeholder="Search by Mobile No" />
+                        <button class="btn btn-success" onclick="SearchCustomer()">Search</button>
+                    </div>
+
+                    <label>Customer First Name</label>
+                    <input id="fname" class="form-control mb-2" />
+
+                    <label>Customer Type</label>
+                    <select id="custtype" class="form-control mb-2">
+                        <option>IND</option>
+                        <option>ORG</option>
+                    </select>
+
+                    <label>Customer Street Address</label>
+                    <input id="street" class="form-control mb-2" />
+
+                    <label>Customer State</label>
+                    <input id="state" class="form-control mb-2" />
+
+                    <label>Customer Country</label>
+                    <input id="country" class="form-control mb-2" />
+
+                    <label>Email ID</label>
+                    <input id="email" class="form-control mb-2" />
+
+                    <label>Customer Remarks</label>
+                    <input id="remarks" class="form-control mb-2" />
+
+                    <label>Invoice Remarks</label>
+                    <input id="invremark" class="form-control" />
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Customer No</label>
+                    <input id="custno" class="form-control mb-2" />
+
+                    <label>Customer Last Name</label>
+                    <input id="lname" class="form-control mb-2" />
+
+                    <label>Customer Status</label>
+                    <select id="CustSts" class="form-control mb-2">
+                        <option value="ACT">ACT</option>
+                        <option value="INA">INA</option>
+                    </select>
+
+                    <label>Customer Area Address</label>
+                    <input id="area" class="form-control mb-2" />
+
+                    <label>Customer City</label>
+                    <input id="city" class="form-control mb-2" />
+
+                    <label>Customer Pin Code</label>
+                    <input id="pincode" class="form-control mb-2" />
+
+                    <label>Customer Last Visit On</label>
+                    <input id="CustlLastVisit" type="date" class="form-control mb-2" />
+
+                    @*<label>Invoice No</label>
+                    <input id="innvoiceno" class="form-control mb-2" />*@
+
+                    <label>Invoice No</label>
+                    <input id="innvoiceno" value="@Model.InnvoiceNo" class="form-control mb-2" readonly />
+
+                    <label>Invoice Date</label>
+                    <input id="invoicedate" type="date" class="form-control" />
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= VEHICLE ================= -->
+        <div id="vehicle" class="tab-pane fade box">
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <label>Vehicle Reg No</label>
+                    <input id="vehno" class="form-control mb-2" />
+
+                    <label>Vehicle Chassis No</label>
+                    <input id="chassis" class="form-control mb-2" />
+
+                    <label>Vehicle Mileage</label>
+                    <input id="mileage" class="form-control mb-2" />
+
+                    <label>Service Ass. Name</label>
+                    <input id="advisor" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                    <label>Vehicle Model</label>
+                    <input id="vehmodel" class="form-control mb-2" />
+
+                    <label>Vehicle Engine No</label>
+                    <input id="engine" class="form-control mb-2" />
+
+                    <label>Service Type</label>
+                    <input id="servicetype" class="form-control mb-2" />
+
+                    <label>Service Ass. Mobile No</label>
+                    <input id="servicemobile" class="form-control" />
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= BILL ================= -->
+        <div id="bill" class="tab-pane fade box">
+
+                <div class="row">
+
+                    <!-- 🔵 LEFT SIDE (PARTS) -->
+                    <div class="col-md-6">
+
+                        <label>Parts Total</label>
+                        <input id="partsTotal" class="form-control mb-2" />
+
+                        <label>Parts CGST Total</label>
+                        <input id="partsCGST" class="form-control mb-2" />
+
+                        <label>Parts SGST Total</label>
+                        <input id="partsSGST" class="form-control mb-2" />
+
+                        <label>Parts IGST Total</label>
+                        <input id="partsIGST" class="form-control mb-2" />
+
+                        <label>SGST Total</label>
+                        <input id="sgstTotal" class="form-control mb-2" />
+
+                        <label>IGST Total</label>
+                        <input id="igstTotal" class="form-control mb-2" />
+
+                        <label>Total Amount</label>
+                        <input id="totalAmt" class="form-control mb-2" />
+
+                        <label>Discount Amount</label>
+                        <input id="discount" class="form-control" />
+
+                    </div>
+
+                    <!-- 🔵 RIGHT SIDE (LABOUR) -->
+                    <div class="col-md-6">
+
+                        <label>Labour Total</label>
+                        <input id="labourTotal" class="form-control mb-2" />
+
+                        <label>Labour CGST Total</label>
+                        <input id="lcgst" class="form-control mb-2" />
+
+                        <label>Labour SGST Total</label>
+                        <input id="lsgst" class="form-control mb-2" />
+
+                        <label>Labour IGST Total</label>
+                        <input id="ligst" class="form-control mb-2" />
+
+                        <label>CGST Total</label>
+                        <input id="cgstTotal" class="form-control mb-2" />
+
+                        <label>Total Tax</label>
+                        <input id="tax" class="form-control mb-2" />
+
+                        <label>Grand Total</label>
+                        <input id="grand" class="form-control mb-2" />
+
+                        <label>Invoice Total</label>
+                        <input id="invoiceTotal" class="form-control" />
+
+                    </div>
+
+                </div>
+
+        </div>
+
+    </div>
+
+    <hr />
+
+    <!-- 🔥 ITEM SECTION (COMMON - ALWAYS VISIBLE) -->
+    <div class="box mt-3">
+
+        <h5 class="mb-3">Add Item</h5>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <label>Item No</label>
+                <input id="itemno" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+                <label>Item Desc</label>
+                <div class="input-group">
+                    <input id="item" class="form-control" />
+                    <button class="btn btn-success" onclick="SearchItem()">Search</button>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <label>ItemPrice</label>
+                <input id="Itemprice" class="form-control" />
+            </div>
+
+            <input type="hidden" id="itemCatg" />
+
+            <div class="col-md-4">
+                <label>ItemUOM</label>
+                <input id="ItemUOM" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+                <label>Qty</label>
+                <input id="qty" class="form-control" />
+            </div>
+
+            <input type="hidden" id="itemtype" />
+
+            <div class="col-md-4">
+                <label>Gross Amount</label>
+                <input id="GrossAmount" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+                <label>CGST%</label>
+                <input id="cgst" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+                <label>SGST%</label>
+                <input id="sgst" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+                <label>IGST%</label>
+                <input id="igst" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label>Discount</label>
+                <input id="DiscountAmount" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label>Net</label>
+                <input id="Net" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label>TotalTax</label>
+                <input id="TotalTax" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label>TotalAmount</label>
+                <input id="TotalAmount" class="form-control" />
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-success mt-4" onclick="addRow()">Add</button>
+            </div>
+
+        </div>
+
+        <!-- GRID -->
+        <div class="mm-table-card mt-3" style="box-shadow:none;">
+            <table class="table table-bordered mb-0" id="grid">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Item No</th>
+                        <th>Item Desc</th>
+                        <th>Type</th>
+                        <th>Catg</th>
+                        <th>Price</th>
+                        <th>UOM</th>
+                        <th>Qty</th>
+                        <th>IGST Rate</th>
+                        <th>IGST Amt</th>
+                        <th>Total Price</th>
+                        <th>Discount</th>
+                        <th>Net Price</th>
+                        <th>Total Tax</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="text-end mt-3">
+            @*<button class="btn btn-success">Save</button>*@
+            <button type="button" class="btn btn-success" onclick="SaveInvoice()">Save</button>
+            <button class="btn btn-warning">Finalize</button>
+            <button class="btn btn-primary">Print</button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MODALS -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="SearchResult"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="itemModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="ItemResult"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let count = 0;
+
+    function addRow() {
+
+        count++;
+
+        let itemno = $("#itemno").val();
+        let item = $("#item").val();
+        let price = parseFloat($("#Itemprice").val()) || 0;
+        let uom = $("#ItemUOM").val();
+        let type = $("#itemtype").val();
+        let qty = parseFloat($("#qty").val()) || 0;
+        let catg = $("#itemCatg").val();
+
+        let cgst = parseFloat($("#cgst").val()) || 0;
+        let sgst = parseFloat($("#sgst").val()) || 0;
+        let igst = parseFloat($("#igst").val()) || 0;
+
+        let discount = parseFloat($("#Discount").val()) || 0;
+
+        // calculations
+        let gross = price * qty;
+        let tax = (gross * (cgst + sgst + igst)) / 100;
+        let net = gross - discount;
+        let total = net + tax;
+        $("#grid tbody").append(`
+        <tr>
+            <td>${count}</td>
+            <td>${itemno}</td>
+            <td>${item}</td>
+            <td>${type}</td>
+            <td>${catg}</td>
+            <td>${price}</td>        // ✔ correct
+            <td>${uom}</td>          // ✔ correct
+            <td>${qty}</td>          // ✔ correct
+            <td>${igst}</td>
+            <td>${tax.toFixed(2)}</td>
+            <td>${gross.toFixed(2)}</td>
+            <td>${discount}</td>
+            <td>${net.toFixed(2)}</td>
+            <td>${tax.toFixed(2)}</td>
+            <td>${total.toFixed(2)}</td>
+        </tr>
+        `);
+        calculateBillTotals();
+    }
+    $(document).ready(function () {
+
+        $(document).on("keyup change", "#discount", function () {
+            calculateBillTotals();
+        });
+
+    }); // 🔥 YE CLOSE KARNA JARURI HAI
+
+    //function SearchCustomer() {
+
+    //    let mobile = $("#mobile").val();
+
+    //    $.get('/Customer/SearchCustomerByMobileNo', { isMobileNo: mobile }, function (res) {
+
+    //        $("#SearchResult").html(res);
+    //        new bootstrap.Modal(document.getElementById('myModal')).show();
+    //    });
+    //}
+    // 🔥 IMP: Search ke baad DOM update hota hai, toh uske baad sort karna hai
+    function SearchCustomer() {
+
+        let mobile = $("#mobile").val();
+
+        $.get('/Customer/SearchCustomerByMobileNo', { isMobileNo: mobile }, function (res) {
+
+            $("#SearchResult").html(res);
+
+            setTimeout(function () {
+                sortCustomerAZ(); // 🔥 auto sort
+            }, 100);
+
+            new bootstrap.Modal(document.getElementById('myModal')).show();
+        });
+    }
+
+    function SelectCustomer(id) {
+
+        $.get('/Customer/LoadCustomerJSON', { inCustNo: id }, function (res) {
+
+            console.log(res); // 🔥 debug
+
+            $("#fname").val(res.CustFName);
+            $("#lname").val(res.CustLName);
+            $("#mobile").val(res.CustMobNo);
+            $("#email").val(res.CustEmail);
+            $("#custno").val(res.CustNo);
+
+            $("#custtype").val(res.CustType);
+            $("#CustSts").val(res.CustSts);
+
+            $("#street").val(res.CustStAddr);
+            $("#area").val(res.CustArAddr);
+
+            $("#city").val(res.CustCity);
+            $("#state").val(res.CustState);
+            $("#pincode").val(res.CustPinCode);
+            $("#country").val(res.CustCountry);
+
+            $("#remarks").val(res.CustRemarks);
+            $("#innvoiceno").val(res.InnvoiceNo || '');
+
+            // date format fix
+            $("#invoicedate").val(res.InvoiceDate ? res.InvoiceDate.split('T')[0] : '');
+            $("#CustlLastVisit").val(res.CustlLastVisit ? res.CustlLastVisit.split('T')[0] : '');
+
+            bootstrap.Modal.getInstance(document.getElementById('myModal')).hide();
+        });
+    }
+
+
+    // ================ ITEM SEARCH & SELECT ================
+    //function SearchItem() {
+
+    //    let name = $("#item").val();
+
+    //    $.get('/Item/SearchItemByDesc', { name: name }, function (res) {
+
+    //        $("#ItemResult").html(res);
+    //        new bootstrap.Modal(document.getElementById('itemModal')).show();
+    //    });
+    //}
+    function SearchItem() {
+
+        let name = $("#item").val();
+
+        $.get('/Item/SearchItemByDesc', { name: name }, function (res) {
+
+            $("#ItemResult").html(res);
+
+            // 🔥 important: DOM load hone ke baad sort
+            setTimeout(function () {
+                sortItemsAZ();
+            }, 100);
+
+            new bootstrap.Modal(document.getElementById('itemModal')).show();
+        });
+    }
+
+    function SelectItem(itemNo, desc, price, uom, type, catg, cgst, sgst, igst) {
+
+        $("#itemno").val(itemNo);
+        $("#item").val(desc);
+        $("#Itemprice").val(price);
+        $("#ItemUOM").val(uom);
+
+        $("#cgst").val(cgst);
+        $("#sgst").val(sgst);
+        $("#igst").val(igst);
+
+        // optional (if you add these fields)
+        $("#itemtype").val(type);
+        $("#itemCatg").val(catg);
+
+        bootstrap.Modal.getInstance(document.getElementById('itemModal')).hide();
+    }
+    function calculateBillTotals() {
+
+        let partsTotal = 0, labourTotal = 0;
+        let partsCGST = 0, partsSGST = 0, partsIGST = 0;
+        let labourCGST = 0, labourSGST = 0, labourIGST = 0;
+
+        let grandTotal = 0;
+
+        $("#grid tbody tr").each(function () {
+
+            let type = $(this).find("td:eq(3)").text();
+
+            let price = parseFloat($(this).find("td:eq(5)").text()) || 0;
+            let qty = parseFloat($(this).find("td:eq(7)").text()) || 0;
+            let igstRate = parseFloat($(this).find("td:eq(8)").text()) || 0;
+
+            let gross = price * qty;
+
+            let cgstAmt = (gross * igstRate) / 100 / 2;
+            let sgstAmt = (gross * igstRate) / 100 / 2;
+            let igstAmt = (gross * igstRate) / 100;
+
+            let total = parseFloat($(this).find("td:eq(14)").text()) || 0;
+
+            if (type === "PARTS") {
+                partsTotal += gross;
+                partsCGST += cgstAmt;
+                partsSGST += sgstAmt;
+                partsIGST += igstAmt;
+            }
+            else if (type === "LABOUR") {
+                labourTotal += gross;
+                labourCGST += cgstAmt;
+                labourSGST += sgstAmt;
+                labourIGST += igstAmt;
+            }
+
+            grandTotal += total;
+        });
+
+        let discount = parseFloat($("#discount").val()) || 0;
+
+        let totalCGST = partsCGST + labourCGST;
+        let totalSGST = partsSGST + labourSGST;
+        let totalIGST = partsIGST + labourIGST;
+
+        let totalTax = totalCGST + totalSGST + totalIGST;
+        let invoiceTotal = grandTotal - discount;
+
+        // 🔵 PARTS
+        $("#partsTotal").val(partsTotal.toFixed(2));
+        $("#partsCGST").val(partsCGST.toFixed(2));
+        $("#partsSGST").val(partsSGST.toFixed(2));
+        $("#partsIGST").val(partsIGST.toFixed(2));
+
+        // 🔵 LABOUR
+        $("#labourTotal").val(labourTotal.toFixed(2));
+        $("#lcgst").val(labourCGST.toFixed(2));
+        $("#lsgst").val(labourSGST.toFixed(2));
+        $("#ligst").val(labourIGST.toFixed(2));
+
+        // 🔵 FINAL
+        $("#cgstTotal").val(totalCGST.toFixed(2));
+        $("#sgstTotal").val(totalSGST.toFixed(2));
+        $("#igstTotal").val(totalIGST.toFixed(2));
+
+        $("#totalAmt").val((partsTotal + labourTotal).toFixed(2));
+        $("#tax").val(totalTax.toFixed(2));
+        $("#grand").val(grandTotal.toFixed(2));
+        $("#invoiceTotal").val(invoiceTotal.toFixed(2));
+    }
+
+
+
+</script>
+<script>
+    function calculateAmount() {
+
+        let price = parseFloat($("#Itemprice").val()) || 0;
+        let qty = parseFloat($("#qty").val()) || 0;
+
+        let cgst = parseFloat($("#cgst").val()) || 0;
+        let sgst = parseFloat($("#sgst").val()) || 0;
+        let igst = parseFloat($("#igst").val()) || 0;
+
+        let discount = parseFloat($("#Discount").val()) || 0;
+
+        let gross = price * qty;
+        $("#GrossAmount").val(gross.toFixed(2));
+
+        let totalTax = (gross * (cgst + sgst + igst)) / 100;
+        $("#TotalTax").val(totalTax.toFixed(2));
+
+        let net = gross - discount;
+        $("#Net").val(net.toFixed(2));
+
+        let totalAmount = net + totalTax;
+        $("#TotalAmount").val(totalAmount.toFixed(2));
+    }
+
+    // auto trigger on change
+    $(document).on("keyup change", "#qty, #Itemprice, #cgst, #sgst, #igst, #Discount", function () {
+        calculateAmount();
+    });
+</script>
+<script>
+    function SaveInvoice() {
+
+        var model = {
+            CustEmail: $('#email').val(),
+            CustSts: $('#CustSts').val(),
+            /*           CustNo: $('#custno').val(),*/
+            CustPinCode: $('#pincode').val(),
+            InnvoiceNo: $('#innvoiceno').val(),
+
+            CustomerType: $('#custtype').val(),
+            Remarks: $('#invremark').val(),
+
+            // ✅ FIXED IDs
+            InvoiceDate: $('#invoicedate').val(),
+            CustomerLastVisit: $('#CustlLastVisit').val(),
+            DiscountAmount: parseFloat($('#discount').val()) || 0,
+
+            FirstName: $('#fname').val(),
+            LastName: $('#lname').val(),
+            MobileNo: $('#mobile').val(),
+
+            StreetAddress: $('#street').val(),
+            AreaAddress: $('#area').val(),
+            City: $('#city').val(),
+            State: $('#state').val(),
+            Country: $('#country').val(),
+            Remarks: $('#remarks').val(),
+
+            VehicleRegNo: $('#vehno').val(),
+            VehicleModel: $('#vehmodel').val(),
+
+            PartsTotal: parseFloat($('#partsTotal').val()) || 0,
+            LabourTotal: parseFloat($('#labourTotal').val()) || 0,
+            TotalTax: parseFloat($('#tax').val()) || 0,
+            GrandTotal: parseFloat($('#grand').val()) || 0,
+            CustNo: parseInt($('#custno').val()) || 0,
+
+            // 🔥 NEW ADD
+            ChassisNo: $('#chassis').val(),
+            EngineNo: $('#engine').val(),
+            Mileage: parseInt($('#mileage').val()) || 0,
+            ServiceType: $('#servicetype').val(),
+            ServiceAdvisor: $('#advisor').val(),
+            ServiceMobile: $('#servicemobile').val(),
+
+            PartsCGST: parseFloat($('#partsCGST').val()) || 0,
+            PartsSGST: parseFloat($('#partsSGST').val()) || 0,
+            PartsIGST: parseFloat($('#partsIGST').val()) || 0,
+
+            LabourCGST: parseFloat($('#lcgst').val()) || 0,
+            LabourSGST: parseFloat($('#lsgst').val()) || 0,
+            LabourIGST: parseFloat($('#ligst').val()) || 0,
+
+            TotalAmount: parseFloat($('#totalAmt').val()) || 0,
+
+            InvoiceTotal: parseFloat($('#invoiceTotal').val()) || 0
+        };
+
+        var items = [];
+
+        // ✅ FIXED TABLE ID
+        $('#grid tbody tr').each(function () {
+
+            var row = $(this);
+
+            var item = {
+                ItemNo: row.find("td:eq(1)").text(),
+                ItemDesc: row.find("td:eq(2)").text(),
+                ItemType: row.find("td:eq(3)").text(),
+                ItemCategory: row.find("td:eq(4)").text(),
+                ItemPrice: row.find("td:eq(5)").text(),
+                ItemUOM: row.find("td:eq(6)").text(),
+                Qty: row.find("td:eq(7)").text(),
+                SGST: row.find("td:eq(13)").text() / 2,
+                CGST: row.find("td:eq(13)").text() / 2,
+                IGST: row.find("td:eq(8)").text(),
+                TotalAmount: row.find("td:eq(14)").text()
+            };
+
+            items.push(item);
+        });
+
+        console.log(model); // 🔥 DEBUG
+
+        $.ajax({
+            url: '/Invoice/Create',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                model: JSON.stringify(model),
+                ItemsJson: JSON.stringify(items)
+            }),
+            success: function () {
+                alert("Saved Successfully!");
+                window.location.href = '/Invoice/Index';
+            },
+            error: function (err) {
+                console.log(err.responseText);
+                alert("Error: " + err.responseText);
+            }
+        });
+    }
+
+    // 🔥 CLEAR ITEM FIELDS ON CHANGE
+    $('#itemno, #itemdesc').on('change', function () {
+        clearItem();
+    });
+
+    // 🔥 SORT ITEMS A-Z IN POPUP
+    function sortItemsAZ() {
+
+        let rows = $('#itemTable tr').get();
+
+        rows.sort(function (a, b) {
+
+            let A = $(a).find("td:eq(0)").text().toUpperCase();
+            let B = $(b).find("td:eq(0)").text().toUpperCase();
+
+            return A.localeCompare(B);
+        });
+
+        $.each(rows, function (index, row) {
+            $('#itemTable').append(row);
+        });
+    }
+
+    // 🔥 SEARCH IN ITEM POPUP
+    $(document).on('keyup', '#popupSearch', function () {
+
+        let value = $(this).val().toLowerCase();
+
+        $('#itemTable tbody tr').filter(function () {
+
+            let text = $(this).find("td:eq(0)").text().toLowerCase().trim();
+
+            // 🔥 only STARTS WITH
+            $(this).toggle(text.startsWith(value));
+
+        });
+
+    });
+
+    // 🔥 SEARCH IN CUSTOMER POPUP
+    $(document).on('keyup', '#custSearch', function () {
+
+        let value = $(this).val().toLowerCase();
+
+        $('#custTable tbody tr').filter(function () {
+
+            let name = $(this).find("td:eq(0)").text().toLowerCase().trim();
+
+            $(this).toggle(name.startsWith(value));
+
+        });
+
+    });
+
+
+    // 🔥 SORT CUSTOMERS A-Z IN POPUP
+    function sortCustomerAZ() {
+
+        let rows = $('#custTable tbody tr').get();
+
+        rows.sort(function (a, b) {
+
+            let A = $(a).find("td:eq(0)").text().toUpperCase();
+            let B = $(b).find("td:eq(0)").text().toUpperCase();
+
+            return A.localeCompare(B);
+        });
+
+        $.each(rows, function (index, row) {
+            $('#custTable tbody').append(row);
+        });
+    }
+</script>
